@@ -4,5 +4,5 @@ class Parent < ActiveRecord::Base
   has_secure_password
 
   validates :student, presence: true
-
+  validates :email, uniqueness: true
 end
