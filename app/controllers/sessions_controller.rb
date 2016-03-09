@@ -9,15 +9,15 @@ class SessionsController < ApplicationController
     student = Student.find_by_email(params[:email])
     parent = Parent.find_by_email(params[:email])
 
-    if teacher && teacher.authenticate(params[:password])
+    if teacher && teacher.authenticate(params[:password]) && params[:radio_selection] == "Teacher"
       session[:user_id] = teacher.id
       session[:user_type] = "Teacher"
       redirect_to root_path, notice: "You have succesfully logged in!"
-    elsif student && student.authenticate(params[:password])
+    elsif student && student.authenticate(params[:password]) && session[params[:user_type]] == "Student"
       session[:user_id] = student.id
       session[:user_type] = "Student"
       redirect_to root_path, notice: "You have succesfully logged in!"
-    elsif parent && parent.authenticate(params[:password])
+    elsif parent && parent.authenticate(params[:password]) && session[params[:user_type]] == "Parent"
       session[:user_id] = parent.id
       session[:user_type] = "Parent"
       redirect_to root_path, notice: "You have succesfully logged in!"

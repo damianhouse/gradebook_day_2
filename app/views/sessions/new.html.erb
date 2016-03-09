@@ -11,6 +11,11 @@
 
   <p><%= label_tag :password %>
   <%= password_field_tag :password %></p>
-
+  <%= radio_button_tag(:radio_selection, "Teacher", true) %>
+  <%= label_tag(:radio_selection, "Teacher") %>
+  <%= radio_button_tag(:radio_selection, "Student") %>
+  <%= label_tag(:radio_selection, "Student") %>
+  <%= radio_button_tag(:radio_selection, "Parent") %>
+  <%= label_tag(:radio_selection, "Parent") %><br>
   <%= submit_tag "Log in" %>
 <% end %>
