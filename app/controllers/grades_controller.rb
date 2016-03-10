@@ -4,7 +4,14 @@ class GradesController < ApplicationController
 
   # GET /grades
   def index
-    @grades = Grade.all
+    if session[:user_type] == "Teacher"
+      @grades = Grade.all
+    elsif session[:user_type] == "Student"
+      @grades = Grade.where(student_id: session[:user_id])
+    elsif session[:user_type] == "Parent"
+      @grades = Grade.where(student_id: session[:student_id])
+    end
+
   end
 
   # GET /grades/1

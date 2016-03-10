@@ -12,15 +12,16 @@ class SessionsController < ApplicationController
     if teacher && teacher.authenticate(params[:password]) && params[:radio_selection] == "Teacher"
       session[:user_id] = teacher.id
       session[:user_type] = "Teacher"
-      redirect_to root_path, notice: "You have succesfully logged in!"
-    elsif student && student.authenticate(params[:password]) && session[params[:user_type]] == "Student"
+      redirect_to root_path, notice: "You have successfully logged in!"
+    elsif student && student.authenticate(params[:password]) && params[:radio_selection] == "Student"
       session[:user_id] = student.id
       session[:user_type] = "Student"
-      redirect_to root_path, notice: "You have succesfully logged in!"
-    elsif parent && parent.authenticate(params[:password]) && session[params[:user_type]] == "Parent"
+      redirect_to grades_path, notice: "You have successfully logged in!"
+    elsif parent && parent.authenticate(params[:password]) && params[:radio_selection] == "Parent"
       session[:user_id] = parent.id
       session[:user_type] = "Parent"
-      redirect_to root_path, notice: "You have succesfully logged in!"
+      session[:student_id] = parent.student_id
+      redirect_to grades_path, notice: "You have successfully logged in!"
     else
       flash.now[:alert] = "Login failed: invalid email or password."
       render "new"
